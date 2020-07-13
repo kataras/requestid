@@ -64,10 +64,17 @@ func main() {
 When you want an identifier of request based on the headers, body and e.t.c. use the `HashGenerator` helper. Note that, the request id will be the same if the same client sends the same requests (that's the goal here):
 
 ```go
-includeBodyOnHash := false
-gen := requestid.HashGenerator(includeBodyOnHash)
+func main() {
+    // [...]
 
-requestid.Handler(mux, requestid.HandlerWithGenerator(gen))
+    includeBodyOnHash := false
+    gen := requestid.HashGenerator(includeBodyOnHash)
+
+    requestid.HandlerWithGenerator(mux, gen)
+
+    // [...]
+}
+
 ```
  
 ## License
