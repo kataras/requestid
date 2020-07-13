@@ -2,8 +2,11 @@ package requestid
 
 import (
 	"context"
+	"crypto/sha1"
+	"encoding/hex"
 	"fmt"
 	"net/http"
+	"net/http/httputil"
 
 	"github.com/google/uuid"
 )
@@ -37,6 +40,15 @@ var DefaultGenerator Generator = func(w http.ResponseWriter, r *http.Request) st
 
 	setHeader(w, id)
 	return id
+}
+
+// HashGenerator uses the request's hash to generate a fixed-length Request ID.
+// Note that one or many requests may contain the same ID, so it's not unique.
+func HashGenerator(includeBody bool) Generator {
+	return func(w http.ResponseWriter, r *http.Request) string {
+		w.Header().Set(xRequestIDHeaderKey, Hash(r, includeBody))
+		return DefaultGenerator(w, r)
+	}
 }
 
 // ErrorHandler is the handler that is executed when a Generator
@@ -101,4 +113,16 @@ func Get(r *http.Request) string {
 
 func setHeader(w http.ResponseWriter, id string) {
 	w.Header().Set(xRequestIDHeaderKey, id)
+}
+
+// Hash returns the sha1 hash of the "r" request.
+// It does not capture error, instead it returns an empty string.
+func Hash(r *http.Request, includeBody bool) string {
+	h := sha1.New()
+	b, err := httputil.DumpRequest(r, includeBody)
+	if err != nil {
+		return ""
+	}
+	h.Write(b)
+	return hex.EncodeToString(h.Sum(nil))
 }
