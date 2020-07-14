@@ -74,7 +74,6 @@ func main() {
 
     // [...]
 }
-
 ```
  
 ## License
