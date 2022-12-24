@@ -1,6 +1,6 @@
 # Request ID
 
-[![build status](https://img.shields.io/github/workflow/status/kataras/requestid/CI/master?style=for-the-badge)](https://github.com/kataras/requestid/actions) [![report card](https://img.shields.io/badge/report%20card-a%2B-ff3333.svg?style=for-the-badge)](https://goreportcard.com/report/github.com/kataras/requestid) [![godocs](https://img.shields.io/badge/go-%20docs-488AC7.svg?style=for-the-badge)](https://godoc.org/github.com/kataras/requestid)
+[![build status](https://img.shields.io/github/actions/workflow/status/kataras/requestid/ci.yml?style=for-the-badge)](https://github.com/kataras/requestid/actions) [![report card](https://img.shields.io/badge/report%20card-a%2B-ff3333.svg?style=for-the-badge)](https://goreportcard.com/report/github.com/kataras/requestid) [![godocs](https://img.shields.io/badge/go-%20docs-488AC7.svg?style=for-the-badge)](https://godoc.org/github.com/kataras/requestid)
 
 Unique Identifier for each HTTP request. Useful for logging, propagation and e.t.c.
 
